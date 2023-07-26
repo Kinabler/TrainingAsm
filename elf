@@ -1,0 +1,20 @@
+     1                                  section .data
+     2 00000000 546F6E672063756120-             msg     db      "Tong cua 2 so do la",0xa
+     2 00000009 3220736F20646F206C-
+     2 00000012 610A               
+     3                                          len     equ     $ - msg
+     4 00000014 3138313233                      num1    db      "18123"
+     5 00000019 3230313033                      num2    db      "20103"
+     6 0000001E 2020202020                      sum     db      "     "
+     7                                  
+     8                                  _start:
+     9 00000023 66BE04000000                    mov     esi, 4       ;trỏ đến số ngoài cùng bên phải
+    10 00000029 66B905000000                    mov     ecx, 5       ;digits of number
+    11                                          add_loop:
+    12 0000002F 678A86[14000000]                        mov     al, [num1+esi]     ;num1[4,3,2,1] --> al
+    13 00000036 671286[19000000]                        adc     al, [num2+esi]     ;num2[4,3,2,1] --> al
+    14 0000003D 37                                      aaa
+    15 0000003E 0C30                                    or      al, 30h
+    16 00000040 678886[1E000000]                        mov     [sum + esi], al    ;al ---> sum[4,3,2,1]
+    17 00000047 664E                                    dec     esi
+    18 00000049 E2E4                            loop    add_loop
